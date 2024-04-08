@@ -11,14 +11,16 @@ Setup: Copy these files to the matching noah-owp-modular directory structure.
 
 ## Usage
 From noah-owp-modular directory type:
+<pre>
 mkdir ../build
 cd ../build
 cmake ../noah-owp-modular
 cmake --build . -- VERBOSE=1
 cd ../noah-owp-modular
 ../build/noah-owp-modular run/namelist.input
-
+</pre>
 ## Contents
+<pre>
 % pwd
 noah-owp-modular
 % ls -R
@@ -33,7 +35,7 @@ CMakeLists.txt
 
 ./src:
 CMakeLists.txt
-
+</pre>
 ## Getting help
 
 If you have questions, concerns, bug reports, etc., please file an issue in this repository's [Issue Tracker](https://github.com/NOAA-OWP/noah-owp-modular/issues).
