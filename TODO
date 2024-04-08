@@ -1,0 +1,3 @@
+- there is a circular dependency between src/RunModule.f90 and bmi/bmi_noahowp.f90
+- question: why are macros CPP and CPPFLAGS defined in the user_build_options files for noah-owp-modular?
+- what is the Cheyenne Makefile for?
