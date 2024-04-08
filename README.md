@@ -7,7 +7,7 @@ This repo contains a CMake build environment for the refactored version of the N
 Noah-OWP-Modular has been tested on Unix-based systems such as MacOS and Linux. Its only dependency is NetCDF Fortran.
 
 This CMake project builds the codebase outside of the source directory tree.
-Setup: Copy these files to the matching noah-owp-modular directory structure.
+Setup: copy these files to the matching noah-owp-modular directory structure.
 
 ## Usage
 From noah-owp-modular directory type:
