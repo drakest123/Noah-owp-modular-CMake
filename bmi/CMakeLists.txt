@@ -6,5 +6,3 @@ set(BMI_MODS bmi.f90
              CACHE INTERNAL "")
 add_library(bmix "${BMI_X}")
 add_library(bmi "${BMI_MODS}")
-add_dependencies(bmix srcx)
-target_link_libraries(bmix bmi driver src)

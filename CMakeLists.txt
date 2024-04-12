@@ -116,7 +116,7 @@ set(driver ${CMAKE_SOURCE_DIR}/driver)
 
 add_executable(noah-owp-modular.exe "${PROJECT_SOURCE_DIR}/driver/NoahModularDriver.f90")
 include_directories(bmi src driver)
-target_link_libraries(noah-owp-modular.exe bmi src driver ${NETCDF_LIBRARIES})
+target_link_libraries(noah-owp-modular.exe bmi src driver bmix ${NETCDF_LIBRARIES})
 add_link_options("$<$<COMPILE_LANGUAGE:Fortran>:-I ${NETCDF_INC_DIR};-L ${NETCDF_LIB_DIR} -lnetcdff>")
 target_include_directories(noah-owp-modular.exe PUBLIC $<TARGET_PROPERTY:driver,Fortran_MODULE_DIRECTORY>)
 
