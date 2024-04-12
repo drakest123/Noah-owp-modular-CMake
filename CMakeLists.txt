@@ -35,7 +35,7 @@ if(NOT CMAKE_Fortran_COMPILER_SUPPORTS_F90)
     message(FATAL_ERROR "Fortran compiler does not support F90")
 endif(NOT CMAKE_Fortran_COMPILER_SUPPORTS_F90)
 
-# Set compiler options. You may need to uncomment/comments appropriate lines.
+# Set compiler options. You may need to uncomment/comment appropriate lines.
 if(CMAKE_Fortran_COMPILER_ID STREQUAL "Absoft")
   message(FATAL_ERROR "Absoft Fortran compiler not configured.")
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "CCur")
@@ -70,7 +70,7 @@ elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "PGI")
 endif()
 
 # NetCDF compiler flags
-add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-I ${NETCDF_INC_DIR};-L ${NETCDF_LIB_DIR} -lnetcdf -lnetcdff>")
+add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-I ${NETCDF_INC_DIR};-L ${NETCDF_LIB_DIR} -lnetcdff>")
 
 # Set some options the user may choose
 # Uncomment the below if you want the user to choose a parallelization library
@@ -114,11 +114,11 @@ set(driver ${CMAKE_SOURCE_DIR}/driver)
 # Build the target
 ############################################################
 
-add_executable(noah-owp-modular "${PROJECT_SOURCE_DIR}/driver/NoahModularDriver.f90")
+add_executable(noah-owp-modular.exe "${PROJECT_SOURCE_DIR}/driver/NoahModularDriver.f90")
 include_directories(bmi src driver)
-target_link_libraries(noah-owp-modular bmi src driver ${NETCDF_LIBRARIES})
-add_link_options("$<$<COMPILE_LANGUAGE:Fortran>:-I ${NETCDF_INC_DIR};-L ${NETCDF_LIB_DIR} -lnetcdf -lnetcdff>")
-target_include_directories(noah-owp-modular PUBLIC $<TARGET_PROPERTY:driver,Fortran_MODULE_DIRECTORY>)
+target_link_libraries(noah-owp-modular.exe bmi src driver ${NETCDF_LIBRARIES})
+add_link_options("$<$<COMPILE_LANGUAGE:Fortran>:-I ${NETCDF_INC_DIR};-L ${NETCDF_LIB_DIR} -lnetcdff>")
+target_include_directories(noah-owp-modular.exe PUBLIC $<TARGET_PROPERTY:driver,Fortran_MODULE_DIRECTORY>)
 
 # Have the .mod files placed in the lib folder
 set(CMAKE_Fortran_MODULE_DIRECTORY ${lib})

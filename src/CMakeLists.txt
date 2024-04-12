@@ -54,4 +54,4 @@ set(SRC_MODS AlbedoModule.f90
 add_library(srcx "${SRC_X}")
 add_library(src "${SRC_MODS}")
 #add_dependencies(srcx bmi driver)
-target_link_libraries(noah-owp-modular bmix bmi src driver)
+target_link_libraries(noah-owp-modular.exe bmix bmi src driver)
