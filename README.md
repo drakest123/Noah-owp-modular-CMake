@@ -17,7 +17,7 @@ cd ../build
 cmake ../noah-owp-modular
 cmake --build . -- VERBOSE=1
 cd ../noah-owp-modular
-../build/noah-owp-modular run/namelist.input
+../build/noah-owp-modular.exe run/namelist.input
 </pre>
 ## Contents
 <pre>
