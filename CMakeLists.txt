@@ -29,6 +29,8 @@ cmake_path(GET NETCDF_LIBRARIES_F90 PARENT_PATH NETCDF_LIB_DIR)
 set(NETCDF_INC_DIR ${NETCDF_INCLUDES})
 message(NETCDF_INC_DIR:"${NETCDF_INC_DIR}")
 message(NETCDF_LIB_DIR:"${NETCDF_LIB_DIR}")
+message(CMAKE_SOURCE_DIR:"${CMAKE_SOURCE_DIR}")
+message(CMAKE_BINARY_DIR:"${CMAKE_BINARY_DIR}")
 
 # Require that Fortran 90 is supported
 if(NOT CMAKE_Fortran_COMPILER_SUPPORTS_F90)
@@ -108,24 +110,21 @@ add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-I ${NETCDF_INC_DIR};-L ${NET
 set(src ${CMAKE_SOURCE_DIR}/src)
 set(lib ${CMAKE_BINARY_DIR}/lib)
 set(bin ${CMAKE_BINARY_DIR}/bin)
-set(driver ${CMAKE_SOURCE_DIR}/driver)
 
 ############################################################
 # Build the target
 ############################################################
 
 add_executable(noah-owp-modular.exe "${PROJECT_SOURCE_DIR}/driver/NoahModularDriver.f90")
-include_directories(bmi src driver)
-target_link_libraries(noah-owp-modular.exe bmi src driver bmix ${NETCDF_LIBRARIES})
+include_directories(bmi src ${lib})
+target_link_libraries(noah-owp-modular.exe bmi src ${NETCDF_LIBRARIES})
 add_link_options("$<$<COMPILE_LANGUAGE:Fortran>:-I ${NETCDF_INC_DIR};-L ${NETCDF_LIB_DIR} -lnetcdff>")
-target_include_directories(noah-owp-modular.exe PUBLIC $<TARGET_PROPERTY:driver,Fortran_MODULE_DIRECTORY>)
 
 # Have the .mod files placed in the lib folder
 set(CMAKE_Fortran_MODULE_DIRECTORY ${lib})
 
 # Add source have compiled files placed in the bin folder
 add_subdirectory(${src} ${bin})
-add_subdirectory(driver)
 add_subdirectory(bmi)
 # Add a distclean target to the Makefile
 #add_custom_target(distclean 
