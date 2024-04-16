@@ -9,6 +9,13 @@ Noah-OWP-Modular has been tested on Unix-based systems such as MacOS and Linux. 
 This CMake project builds the codebase outside of the source directory tree. The original codebase was PR #100 of noah-owp-modular.
 Setup: copy these files to the matching noah-owp-modular directory structure.
 
+Before building the codebase, you will need to move some source files. Moving these source files simplifies the build:
+<ul>
+  <li>mv bmi/bmi_noahowp.f90 src/.</li>
+  <li>mv driver/AsciiReadModule.f90 src/.</li>
+  <li>mv driver/OutputModule.f90 src/.</li>
+  </ul>
+Once these changes are make in the noah-owp-modular source directory, these files will not need to be moved.
 ## Usage
 From noah-owp-modular directory type:
 <pre>
@@ -26,13 +33,10 @@ noah-owp-modular
 % ls -R
 CMakeLists.txt		FindNetCDF.cmake	SECURITY.md		TODO			driver
 CTestTestfile.cmake	README.md		TERMS.md		bmi			src
-
+<br />
 ./bmi:
 CMakeLists.txt
-
-./driver:
-CMakeLists.txt
-
+<br />
 ./src:
 CMakeLists.txt
 </pre>
