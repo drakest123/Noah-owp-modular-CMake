@@ -19,12 +19,15 @@ Once these changes are make in the noah-owp-modular source directory, these file
 ## Usage
 From noah-owp-modular directory type:
 <pre>
-mkdir ../build
-cd ../build
-cmake ../noah-owp-modular
-cmake --build . -- VERBOSE=1
-cd ../noah-owp-modular
-../build/noah-owp-modular.exe run/namelist.input
+ Usage: from noah-owp-modular directory type:
+ mkdir ../build
+ cd ../build
+ cmake ../noah-owp-modular
+ cmake --build . -- VERBOSE=1
+ cd ../noah-owp-modular/run
+ ../../build/noah-owp-modular.exe namelist.input
+ cd ../test
+ ../../build/noahowp_driver_test.exe ../run/namelist.input
 </pre>
 ## Contents
 <pre>

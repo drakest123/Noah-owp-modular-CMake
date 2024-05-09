@@ -1,15 +1,12 @@
-# CMake project file for Noah-OWP-Modular
-# This CMake project builds the codebase outside
-# of the source directory tree.
-# Setup: Copy these files to the matching 
-# noah-owp-modular directory structure.
 # Usage: from noah-owp-modular directory type:
 # mkdir ../build
 # cd ../build
 # cmake ../noah-owp-modular
 # cmake --build . -- VERBOSE=1
-# cd ../noah-owp-modular
-# ../build/noah-owp-modular run/namelist.input
+# cd ../noah-owp-modular/run
+# ../../build/noah-owp-modular.exe namelist.input
+# cd ../test
+# ../../build/noahowp_driver_test.exe ../run/namelist.input
 
 ##################################################
 # Define the project and the depencies that it has
@@ -48,13 +45,13 @@ elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "G95")
   message(FATAL_ERROR "G95 Fortran compiler not configured.")
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
   # Mac OS Gfortran F90FLAGS and FREESOURCE flags
-  add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-g;-cpp;-fbacktrace;-Wall;-fcheck=all>")
+  add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-cpp;-fbacktrace;-fcheck=all>")
   add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-ffree-form;-ffree-line-length-none;-fbounds-check;-ffpe-trap=overflow,invalid,zero>")
   # Linux Gfortran F90FLAGS and FREESOURCE flags
-  #add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-g;-cpp;-fbacktrace;-Wall;-fcheck=all>")
+  #add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-cpp;-fbacktrace;-fcheck=all>")
   #add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-ffree-form;-ffree-line-length-none>")
   # Big Sur Gfortran F90FLAGS and FREESOURCE flags
-  #add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-g;-cpp;-fbacktrace;-Wall;-fcheck=all>")
+  #add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-cpp;-fbacktrace;-fcheck=all>")
   #add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-ffree-form;-ffree-line-length-none>")
 elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^Intel")
   add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-check;-warn;-traceback>")
@@ -64,15 +61,12 @@ elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "LLVMFlang")
   message(FATAL_ERROR "LLVM Flang Fortran compiler not configured.")
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "PGI")
   # Linux pgf90 F90FLAGS and FREESOURCE flags
-  add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-g;-cpp;-Kieee>")
+  add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-cpp;-Kieee>")
   add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-Mfree>")
   # Cheyenne pgf90 F90FLAGS and FREESOURCE flags
-  add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-g;-cpp;-Kieee;-byteswapio;-Mbackslash>")
+  add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-cpp;-Kieee;-byteswapio;-Mbackslash>")
   add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-Mfree>")
 endif()
-
-# NetCDF compiler flags
-add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-I ${NETCDF_INC_DIR};-L ${NETCDF_LIB_DIR} -lnetcdff>")
 
 # Set some options the user may choose
 # Uncomment the below if you want the user to choose a parallelization library
@@ -112,13 +106,15 @@ set(lib ${CMAKE_BINARY_DIR}/lib)
 set(bin ${CMAKE_BINARY_DIR}/bin)
 
 ############################################################
-# Build the target
+# Build the targets
 ############################################################
 
 add_executable(noah-owp-modular.exe "${PROJECT_SOURCE_DIR}/driver/NoahModularDriver.f90")
+add_executable(noahowp_driver_test.exe "${PROJECT_SOURCE_DIR}/test/noahowp_driver_test.f90")
 include_directories(bmi src ${lib})
 target_link_libraries(noah-owp-modular.exe bmi src ${NETCDF_LIBRARIES})
-add_link_options("$<$<COMPILE_LANGUAGE:Fortran>:-I ${NETCDF_INC_DIR};-L ${NETCDF_LIB_DIR} -lnetcdff>")
+target_link_libraries(noahowp_driver_test.exe bmi src ${NETCDF_LIBRARIES})
+add_compile_options("$<$<COMPILE_LANGUAGE:Fortran>:-I ${NETCDF_INC_DIR};-L ${NETCDF_LIB_DIR} -lnetcdff>")
 
 # Have the .mod files placed in the lib folder
 set(CMAKE_Fortran_MODULE_DIRECTORY ${lib})
