@@ -20,11 +20,7 @@
 #  NETCDF_LIBRARIES_F77  - Fortran 77 interface, if available
 #  NETCDF_LIBRARIES_F90  - Fortran 90 interface, if available
 #
-# Normal usage would be:
   set (NETCDF_F90 "YES")
-  find_package (NetCDF REQUIRED)
-#  target_link_libraries (uses_f90_interface ${NETCDF_LIBRARIES})
-#  target_link_libraries (only_uses_c_interface ${NETCDF_LIBRARIES_C})
 
 if (NETCDF_INCLUDES AND NETCDF_LIBRARIES)
   # Already in cache, be silent
